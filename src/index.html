@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick WebM Recorder</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="module" src="/main.js" defer></script>
+</head>
+<body>
+  <!-- Drag region for the entire window -->
+  <div id="drag-region" data-tauri-drag-region></div>
+
+  <div id="app">
+    <!-- Idle state: toolbar -->
+    <div id="toolbar" class="toolbar">
+      <div class="toolbar-group">
+        <button id="btn-fullscreen" class="toolbar-btn active" title="フルスクリーン">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="16" height="16" rx="2"/>
+          </svg>
+          <span>フルスクリーン</span>
+        </button>
+        <button id="btn-region" class="toolbar-btn" title="範囲選択">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2">
+            <rect x="4" y="4" width="12" height="12" rx="1"/>
+          </svg>
+          <span>範囲選択</span>
+        </button>
+      </div>
+
+      <div class="toolbar-divider"></div>
+
+      <div class="toolbar-group">
+        <button id="btn-savedir" class="toolbar-btn" title="保存先を選択">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 6h5l2-2h6l2 2h1v10H2z"/>
+          </svg>
+          <span id="savedir-label">デスクトップ</span>
+        </button>
+      </div>
+
+      <div class="toolbar-divider"></div>
+
+      <div class="toolbar-group">
+        <button id="btn-record" class="toolbar-btn record-btn" title="録画開始">
+          <span class="record-dot"></span>
+          <span>録画</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Region selected state: shows selected size + record -->
+    <div id="region-bar" class="toolbar hidden">
+      <div class="toolbar-group">
+        <span class="region-info" id="region-info"></span>
+      </div>
+      <div class="toolbar-divider"></div>
+      <div class="toolbar-group">
+        <button id="btn-reselect" class="toolbar-btn" title="再選択">再選択</button>
+        <button id="btn-region-record" class="toolbar-btn record-btn" title="録画開始">
+          <span class="record-dot"></span>
+          <span>録画</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Recording state -->
+    <div id="recording-bar" class="toolbar hidden">
+      <div class="toolbar-group">
+        <span class="recording-indicator"></span>
+        <span id="timer" class="timer">00:00</span>
+      </div>
+      <div class="toolbar-divider"></div>
+      <div class="toolbar-group">
+        <button id="btn-stop" class="toolbar-btn stop-btn" title="停止 (Esc)">
+          <span class="stop-square"></span>
+          <span>停止</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Completion state -->
+    <div id="complete-bar" class="toolbar hidden">
+      <div class="toolbar-group">
+        <span class="complete-text" id="complete-path"></span>
+      </div>
+      <div class="toolbar-divider"></div>
+      <div class="toolbar-group">
+        <button id="btn-open" class="toolbar-btn">開く</button>
+        <button id="btn-gif" class="toolbar-btn">GIF変換</button>
+        <button id="btn-new" class="toolbar-btn">新規</button>
+      </div>
+    </div>
+
+    <!-- GIF progress -->
+    <div id="gif-bar" class="toolbar hidden">
+      <div class="toolbar-group">
+        <span class="spinner"></span>
+        <span class="complete-text">GIF変換中...</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
