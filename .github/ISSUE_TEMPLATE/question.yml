@@ -1,0 +1,22 @@
+name: Question
+description: Ask a question about the project
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please describe your question. Consider existing issues and documentation first.
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Your question
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Any additional context
+    validations:
+      required: false
