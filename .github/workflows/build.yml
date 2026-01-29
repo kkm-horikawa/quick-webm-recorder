@@ -29,6 +29,16 @@ jobs:
         with:
           workspaces: src-tauri
 
+      - name: Download ffmpeg
+        shell: pwsh
+        run: |
+          $ffmpegUrl = "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip"
+          Invoke-WebRequest -Uri $ffmpegUrl -OutFile ffmpeg.zip
+          Expand-Archive -Path ffmpeg.zip -DestinationPath ffmpeg-temp
+          $ffmpegExe = Get-ChildItem -Path ffmpeg-temp -Recurse -Filter "ffmpeg.exe" | Select-Object -First 1
+          Copy-Item $ffmpegExe.FullName -Destination "src-tauri/ffmpeg/ffmpeg.exe"
+          Remove-Item -Recurse -Force ffmpeg.zip, ffmpeg-temp
+
       - name: Install dependencies
         run: npm ci
 
